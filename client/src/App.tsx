@@ -1,5 +1,13 @@
+import Chat from "./components/Chat/Chat";
+import NavBar from "./components/NavBar/NavBar";
+
 function App() {
-  return <>WebSocket</>;
+  return (
+    <>
+      <NavBar />
+      <Chat />
+    </>
+  );
 }
 
 export default App;
