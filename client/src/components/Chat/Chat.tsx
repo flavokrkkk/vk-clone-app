@@ -3,6 +3,7 @@ import { ChangeEventHandler, useRef, useState } from "react";
 import { IMessage } from "../../models/IMessage";
 import MessageList from "../MessageList/MessageList";
 import { BoxForm } from "./styles";
+import { useActions } from "../../hooks/useActions";
 
 const Chat = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
@@ -13,7 +14,9 @@ const Chat = () => {
 
   const [username, setUsername] = useState("");
 
-  const socket = useRef<WebSocket>();
+  const { setSocket } = useActions();
+
+  const socket = useRef<WebSocket | null>(null);
 
   const sendMessage = async () => {
     const message: IMessage = {
@@ -37,6 +40,7 @@ const Chat = () => {
 
   function connect() {
     socket.current = new WebSocket("ws://localhost:5000");
+    setSocket(socket.current);
 
     socket.current.onopen = () => {
       setConnected(true);
